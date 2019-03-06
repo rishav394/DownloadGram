@@ -1,8 +1,8 @@
-const { email, password } = require('./credentials');
+const { email, password } = require('./credentials').default;
 const notifier = require('mail-notifier');
 const request = require('request');
 const jsdom = require('jsdom');
-const { send } = require('./mailSender');
+const { send } = require('./mailSender').default.default;
 
 const imap = {
 	user: email, // Imported from credentials.js
@@ -18,9 +18,6 @@ const linkEtract = (x, cb) => {
 	x = String(x).split('?')[0];
 	request(x, (error, response, body) => {
 		if (error || !response) {
-			console.log(error);
-			console.log(response.statusCode);
-
 			cb('Not a VALID URL');
 		} else {
 			var dom = new jsdom.JSDOM(body);
