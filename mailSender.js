@@ -1,4 +1,4 @@
-const { email, password } = require('./credentials').default;
+const { email, password } = require('./credentials');
 const nodemailer = require('nodemailer');
 
 function send(from, to, subject, text, callback) {

@@ -1,8 +1,8 @@
-const { email, password } = require('./credentials').default;
+const { email, password } = require('./credentials');
 const notifier = require('mail-notifier');
 const request = require('request');
 const jsdom = require('jsdom');
-const { send } = require('./mailSender').default.default;
+const { send } = require('./mailSender');
 
 const imap = {
 	user: email, // Imported from credentials.js
@@ -21,9 +21,18 @@ const linkEtract = (x, cb) => {
 			cb('Not a VALID URL');
 		} else {
 			var dom = new jsdom.JSDOM(body);
-			var link = dom.window.document.querySelector(
-				'[property~="og:image"]',
-			).content;
+			var link = 'The URL does not contain any video or image';
+			if (dom.window.document.querySelector('[property~="og:video"]')) {
+				link = dom.window.document.querySelector(
+					'[property~="og:video"]',
+				).content;
+			} else if (
+				dom.window.document.querySelector('[property~="og:image"]')
+			) {
+				link = dom.window.document.querySelector(
+					'[property~="og:image"]',
+				).content;
+			}
 
 			// Better way but aukad ni hai :P
 			// var stream = request(link).pipe(fs.createWriteStream('doodle.png'));

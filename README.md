@@ -4,7 +4,7 @@ Download **Instagram** Images via email 📫
 
 ## Process
 
-Make a new `credentials.js` file and export email and password so that you can use it in `index.js` and `mailSender.js`. 
+Make a new `credentials.js` file and export email and password so that you can use it in `index.js` and `mailSender.js`.
 
 `credentials.js` should look something like this:
 
@@ -41,6 +41,8 @@ and then import `email` and `password` in `index.js` and `mailSender.js`
 ```js
 const { email, password } = require('./credentials').default;
 ```
+
+Keep in mind that your environment (e.g. node.js) must support ES6 Module syntax in order to use the ES6 syntax. NodeJS uses CommonJS Module syntax (module.exports) not ES6 module syntax (export keyword). So refer to [this](https://stackoverflow.com/questions/38296667/getting-unexpected-token-export) page to get more details and solve the `undefined token export` error, if you encounter it. The solution to this problem is to use *babel npm package* to transpile your ES6 to a commonjs target.
 
 Send a mail to the specified email address 📮 with the link of the instagram image. It will send you back the image which you can easily download by right-clicking and Save As in your browser 🎉
 
